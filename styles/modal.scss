@@ -1,0 +1,84 @@
+@import './config.scss';
+
+.container-modal {
+    margin-top: 150px;
+
+    .modal-footer {
+        border-top: none;
+        margin-top: 0px;
+        padding-top: 0px;
+
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0px;
+
+            button {
+                width: 40%;
+                height: 50px;
+                background-color: $primaryColor;
+                background-color: $primaryColor;
+                border: none;
+                outline: none;
+                color: white;
+                border-radius: 12px;
+                font-size: 15px;
+                margin-right: 15px;
+                cursor: pointer;
+            }
+
+            span {
+                color: $mediumGreyColor;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .modal-content {
+        border-radius: 15px;
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            p {
+                color: $primaryColor;
+                font-size: 17px;
+                margin-top: 10px;
+                font-weight: bold;
+            }
+
+            .error {
+                color: $errorColor;
+                font-size: 15px;
+            }
+
+            input {
+                border-width: 0.5px;
+                border-color: $mediumGreyColor;
+                border-radius: 8px;
+                padding: 10px;
+                margin-bottom: 10px;
+                width: 90%;
+            }
+        }
+    }
+
+    @media screen and (min-width: $mediaQueryDesktop) {
+        .modal-footer {
+            .button {
+                button {
+                    background-color: $mediumGreyColor;
+
+                    &:hover {
+                        background-color: $primaryColor;
+                    }
+                }
+            }
+        }
+    }
+}

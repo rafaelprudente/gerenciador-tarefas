@@ -1,0 +1,35 @@
+@import './config.scss';
+
+.container-list {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    &.not-empty {
+        justify-content: flex-start;
+    }
+
+    img{
+        width: 280px;
+    }
+
+    p{
+        color: $primaryColor;
+        font-size: 14px;
+        display: block;
+        font-weight: 800;
+    }
+
+    @media screen and (min-width: $mediaQueryDesktop) {
+        img{
+            width: 500px;
+        }
+    
+        p{
+            font-size: 20px;
+        }
+    }
+}

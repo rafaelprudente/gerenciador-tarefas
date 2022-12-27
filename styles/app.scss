@@ -1,0 +1,91 @@
+@import '~bootstrap/scss/bootstrap';
+@import './config.scss';
+
+@font-face {
+    font-family: 'Biennale Regular';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../public/fonts/BiennaleRegular.otf') format('opentype');
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    font-family: 'Biennale Regular';
+}
+
+#__next{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    align-items: center;
+    justify-content: center;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    padding: 0;
+}
+
+input, select {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    color: $primaryColor;
+    min-width: 150px;
+    background-color: transparent;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-bottom: 1px solid $mediumGreyColor;
+
+    &:focus{
+        border-bottom-color: $primaryColor;
+    }
+
+    outline: none;
+
+    &::placeholder{
+        color: $mediumGreyColor;
+        opacity: 1;
+    }
+
+    &:-ms-input-placeholder{
+        color: $mediumGreyColor;
+    }
+
+    &::-ms-input-placeholder{
+        color: $mediumGreyColor;
+    }
+}
+
+@media screen and (min-width: $mediaQueryDesktop) {
+    input, select {
+        border-radius: 8px;
+        border-width: 1px;
+        padding: 5px;
+        outline: none;
+    }
+
+    select{
+        min-width: 125px;
+    }
+}
+
+.error{
+    text-align: center;
+    color: $errorColor;
+    font-weight: bold;
+}
+
+@import './login.scss';
+@import './header.scss';
+@import './footer.scss';
+@import './filters.scss';
+@import './list.scss';
+@import './item.scss';
+@import './modal.scss';
+

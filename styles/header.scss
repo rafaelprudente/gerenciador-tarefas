@@ -1,0 +1,82 @@
+@import './config.scss';
+
+.container-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $lightGreyColor;
+    padding: 24px;
+
+    .desktop{
+        display: none;
+    }
+
+    button{
+        display: none;
+    }
+
+    .logo{
+        width: 92px;
+    }
+
+    .mobile{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        span {
+            color: $primaryColor;
+            margin-right: 10px;
+        }
+
+        img {
+            width: 30px;
+        }
+    }
+
+    @media screen and (min-width: $mediaQueryDesktop) {
+        padding: 40px 80px;
+        
+        .mobile{
+            display: none;
+        }
+
+        .logo{
+            width: 130px;
+        }
+
+        .desktop{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    
+            span {
+                font-size: 20px;
+                color: $primaryColor;
+                margin-right: 20px;
+            }
+    
+            img {
+                cursor: pointer;
+            }
+        }
+
+        button{
+            display: block;
+            width: 175px;
+            height: 40px;
+            background-color: $secondaryColor;
+            border: none;
+            color: white;
+            border-radius: 12px;
+            font-size: 16px;
+            align-items: center;
+
+            span{
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+        }
+    }
+}

@@ -1,0 +1,93 @@
+@import './config.scss';
+
+.container-filters {
+    display: flex;
+    flex-direction: column;
+    width: 96%;
+    margin-top: 16px;
+    background-color: $mediumGreyColorOpacity;
+    border-radius: 12px;
+    padding: 10px 15px;
+
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .form {
+            display: none;
+        }
+
+        span {
+            color: $primaryColor;
+            font-size: 18px;
+            letter-spacing: 0.01em;
+            font-weight: bold;
+        }
+    }
+
+    .mobiles-filters {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        margin-top: 15px;
+
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 8px;
+
+            label {
+                color: $primaryColor;
+                font-size: 16px;
+                margin-bottom: 0px;
+                margin-right: 15px;
+            }
+        }
+    }
+
+    @media screen and (min-width: $mediaQueryDesktop) {
+        padding: 20px;
+
+        .mobiles-filters {
+            display: none;
+        }
+
+        .title {
+            img {
+                display: none;
+            }
+
+            .form {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                label {
+                    color: $primaryColor;
+                    font-size: 16px;
+                    margin-left: 10px;
+                    margin-right: 15px;
+                    margin-bottom: 0px;
+                }
+
+                input, select {
+                    border-color: $primaryColor;
+                }
+
+                select{
+                    width: 100px;
+                }
+
+                .separator{
+                    border: 1px solid $primaryColor;
+                    width: 0px;
+                    height: 40px;
+                    margin-left: 15px;
+                }
+            }
+        }
+    }
+}
