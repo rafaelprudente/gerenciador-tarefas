@@ -6,17 +6,24 @@ type LoginProps = {
     setToken(s: string): void
 }
 
-export const Login: NextPage<LoginProps> = ({setToken}) => {
+export const Login: NextPage<LoginProps> = ({ setToken }) => {
 
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
+
+    const [onRegistrationScreen, setOnRegistrationScreen] = useState(false);
+
     const [loading, setLoading] = useState(false);
+    const [registering, setRegistering] = useState(false);
 
     const doLogin = async () => {
-        try{
+        try {
             setError('');
-            if(!login || !password){
+            if (!email || !password) {
                 setError('Favor preencher os campos!');
                 return
             }
@@ -24,23 +31,23 @@ export const Login: NextPage<LoginProps> = ({setToken}) => {
             setLoading(true);
 
             const body = {
-                login,
+                email,
                 password
             };
 
-            const result = await executeRequest('login', 'post', body);
-            if(result && result.data){
+            const result = await executeRequest('user', 'post', body);
+            if (result && result.data) {
                 const obj = result.data;
-                localStorage.setItem('accessToken',obj.token);
-                localStorage.setItem('name',obj.name);
-                localStorage.setItem('email',obj.email);
+                localStorage.setItem('accessToken', obj.token);
+                localStorage.setItem('name', obj.name);
+                localStorage.setItem('email', obj.email);
                 setToken(obj.token);
             }
-        }catch(e : any){
+        } catch (e: any) {
             console.log(`Erro ao efetuar login: ${e}`);
-            if(e?.response?.data?.error){
+            if (e?.response?.data?.error) {
                 setError(e.response.data.error);
-            }else{
+            } else {
                 setError(`Erro ao efetuar login, tente novamente.`);
             }
         }
@@ -48,16 +55,66 @@ export const Login: NextPage<LoginProps> = ({setToken}) => {
         setLoading(false);
     }
 
+    const doRegister = async () => {
+        try {
+            setError('');
+            if (!name || !email || !password || !passwordConfirmation) {
+                setError('Favor preencher os campos!');
+                return
+            }
+
+            setRegistering(true);
+
+            const body = {
+                name,
+                email,
+                password,
+                passwordConfirmation
+            };
+
+            const result = await executeRequest('register', 'post', body);
+            if (result && result.data) {
+                const obj = result.data;
+                localStorage.setItem('accessToken', obj.token);
+                localStorage.setItem('name', obj.name);
+                localStorage.setItem('email', obj.email);
+                setToken(obj.token);
+            }
+
+            setOnRegistrationScreen(false);
+        } catch (e: any) {
+            console.log(`Erro ao efetuar registro: ${e}`);
+            if (e?.response?.data?.error) {
+                setError(e.response.data.error);
+            } else {
+                setError(`Erro ao efetuar registro, tente novamente.`);
+            }
+        }
+
+        setRegistering(false);
+    }
+
+    const doChangeScreen = async () => {
+        setOnRegistrationScreen(true);
+    }
+
     return (
         <div className="container-login">
             <img src="/logo.svg" alt="Logo Fiap" className="logo" />
             <div className="form">
                 {error && <p className="error">{error}</p>}
+                <div className="input" hidden={!onRegistrationScreen} >
+                    <img src="/user.svg" alt="User Icone" />
+                    <input type='text' placeholder="Nome"
+                        value={name}
+                        onChange={evento => setName(evento.target.value)}
+                    />
+                </div>
                 <div className="input">
                     <img src="/mail.svg" alt="Login Icone" />
-                    <input type='text' placeholder="Login"
-                        value={login}
-                        onChange={evento => setLogin(evento.target.value)}
+                    <input type='text' placeholder="Email"
+                        value={email}
+                        onChange={evento => setEmail(evento.target.value)}
                     />
                 </div>
                 <div className="input">
@@ -67,7 +124,18 @@ export const Login: NextPage<LoginProps> = ({setToken}) => {
                         onChange={evento => setPassword(evento.target.value)}
                     />
                 </div>
-                <button onClick={doLogin} disabled={loading}>{loading ? '...Carregando': 'Login'}</button>
+                <div className="input" hidden={!onRegistrationScreen}>
+                    <img src="/lock.svg" alt="Senha Icone" />
+                    <input type='password' placeholder="Confirmação da Senha"
+                        value={passwordConfirmation}
+                        onChange={evento => setPasswordConfirmation(evento.target.value)}
+                    />
+                </div>
+                <button onClick={doLogin} disabled={loading} hidden={onRegistrationScreen}>{loading ? '...Carregando' : 'Login'}</button>
+                <button onClick={doRegister} disabled={loading} hidden={!onRegistrationScreen}>{loading ? '...Registrando' : 'Registrar'}</button>
+                <div className="registration" hidden={onRegistrationScreen}>
+                    <span>Crie uma conta clicando</span>&nbsp;<a onClick={doChangeScreen}>aqui</a>
+                </div>
             </div>
         </div>
     );
