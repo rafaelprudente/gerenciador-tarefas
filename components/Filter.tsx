@@ -25,11 +25,11 @@ export const Filter : NextPage<FilterProps> = ({
                 <div className="form">
                 <div>
                     <label>Data prevista de conclusão</label>
-                    <input type="date" value={previsionDateStart} onChange={e => setPrevisionDateStart(e.target.value)}/>
+                    <input type="date" value={previsionDateStart} onChange={e => setPrevisionDateStart(e.target.value)} required/>
                 </div>
                 <div>
                     <label>até</label>
-                    <input type="date" value={previsionDateEnd} onChange={e => setPrevisionDateEnd(e.target.value)}/>
+                    <input type="date" value={previsionDateEnd} onChange={e => setPrevisionDateEnd(e.target.value)} required/>
                 </div>
                 <div className="separator"/>
                 <div>

@@ -73,15 +73,31 @@
                     margin-bottom: 0px;
                 }
 
-                input, select {
-                    border-color: $primaryColor;
+                input[type="date"]::before {
+                    content: attr(placeholder);
+                    position: absolute;
+                    color: $secondaryColor;
                 }
 
-                select{
+                input[type="date"]:focus::before,
+                input[type="date"]:valid::before {
+                    content: "";
+                }
+
+                input[type="date"] {
+                    color: $secondaryColor;
+                }
+
+                input[type="date"]:focus,
+                input[type="date"]:valid {
+                    color: $primaryColor;
+                }
+
+                select {
                     width: 100px;
                 }
 
-                .separator{
+                .separator {
                     border: 1px solid $primaryColor;
                     width: 0px;
                     height: 40px;
