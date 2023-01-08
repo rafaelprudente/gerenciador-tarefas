@@ -21,13 +21,13 @@ const loginEndpoint = async function (requisicao: NextApiRequest, resposta: Next
             return resposta.status(400).json({ error: 'Favor informar os dados para autenticação' });
         }
 
-        const { login, password } = requisicao.body;
+        const { email, password } = requisicao.body;
 
-        if(!login || !password){
+        if(!email || !password){
             return resposta.status(400).json({ error: 'Favor informar os dados para autenticação' });
         }
 
-        const existsUserWithEmail = await UserModel.find({email: login});
+        const existsUserWithEmail = await UserModel.find({email: email});
         if(!existsUserWithEmail || existsUserWithEmail.length === 0){
             return resposta.status(400).json({ error: 'Usuário e senha não conferem' });
         }

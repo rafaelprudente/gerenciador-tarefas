@@ -35,7 +35,7 @@ export const Login: NextPage<LoginProps> = ({ setToken }) => {
                 password
             };
 
-            const result = await executeRequest('user', 'post', body);
+            const result = await executeRequest('login', 'post', body);
             if (result && result.data) {
                 const obj = result.data;
                 localStorage.setItem('accessToken', obj.token);
@@ -62,24 +62,33 @@ export const Login: NextPage<LoginProps> = ({ setToken }) => {
                 setError('Favor preencher os campos!');
                 return
             }
+            if (password != passwordConfirmation) {
+                setError('A confirmação de senha diferente da senha!');
+                return
+            }
 
             setRegistering(true);
 
             const body = {
                 name,
                 email,
-                password,
-                passwordConfirmation
+                password
             };
 
-            const result = await executeRequest('register', 'post', body);
+            const result = await executeRequest('user', 'post', body);
             if (result && result.data) {
                 const obj = result.data;
                 localStorage.setItem('accessToken', obj.token);
                 localStorage.setItem('name', obj.name);
                 localStorage.setItem('email', obj.email);
                 setToken(obj.token);
+
+                setError('Usuário registrado com sucesso!');
             }
+
+            setName('');
+            setPassword('');
+            setPasswordConfirmation('');
 
             setOnRegistrationScreen(false);
         } catch (e: any) {
@@ -95,6 +104,12 @@ export const Login: NextPage<LoginProps> = ({ setToken }) => {
     }
 
     const doChangeScreen = async () => {
+        setError('');
+
+        setName('');
+        setPassword('');
+        setPasswordConfirmation('');
+
         setOnRegistrationScreen(true);
     }
 
