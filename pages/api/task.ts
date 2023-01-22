@@ -62,11 +62,11 @@ const updateTask = async (req: NextApiRequest, res: NextApiResponse<DefaultMessa
         }
 
         if (task.finishPrevisionDate) {
-            taskFound.finishPrevisionDate = task.finishPrevisionDate;
+            taskFound.finishPrevisionDate = moment.utc(task.finishPrevisionDate).format();
         }
 
         if (task.finishDate) {
-            taskFound.finishDate = task.finishDate;
+            taskFound.finishDate = moment.utc(task.finishDate).format();
         }
 
         await TaskModel.findByIdAndUpdate({ _id: taskFound._id }, taskFound);
@@ -121,6 +121,12 @@ const getTasks = async (req: NextApiRequest, res: NextApiResponse<DefaultMessage
     }
 
     const result = await TaskModel.find(query) as Task[];
+    for (const task of result) {
+        task.finishPrevisionDate = moment.utc(task.finishPrevisionDate).local().format();
+        if(task.finishDate != undefined) {
+            task.finishDate = moment.utc(task.finishDate).local().format();
+        }
+    }
     return res.status(200).json(result);
 }
 
@@ -146,6 +152,8 @@ const saveTask = async (req: NextApiRequest, res: NextApiResponse<DefaultMessage
             return res.status(400).json({ error: 'Data de previsao invalida ou menor que hoje' });
         }
 
+        task.finishPrevisionDate = moment.utc(task.finishPrevisionDate).format();
+        
         const final = {
             ...task,
             userId,
